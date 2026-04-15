@@ -141,7 +141,7 @@ jobs:
       uses: lukka/run-vcpkg@v11
       with:
         vcpkgDirectory: ${{ github.workspace }}/vcpkg
-        vcpkgGitCommitId: ${{ env.VCPKG_COMMIT_ID }}
+        vcpkgGitCommitId: 120deac3062162151622ca4860575a33844ba10b
 
 #    - name: Install vcpkg dependencies
 #      run: |
@@ -171,14 +171,17 @@ jobs:
         choco install nasm -y
         choco install strawberryperl -y
 
-    - name: Fix opus install (IMPORTANT)
-      run: |
-        vcpkg install opus[tools]:x64-windows-static
+    - name: Install dependencies
+      run: vcpkg install
 
     - name: Set include path
       run: |
         echo "CFLAGS=-I${{ github.workspace }}\\vcpkg\\installed\\x64-windows-static\\include" >> $env:GITHUB_ENV
         echo "CXXFLAGS=-I${{ github.workspace }}\\vcpkg\\installed\\x64-windows-static\\include" >> $env:GITHUB_ENV
+
+    - name: Set VCPKG triplet
+      run: |
+        echo "VCPKG_DEFAULT_TRIPLET=x64-windows" >> $env:GITHUB_ENV
 
     - name: Build
       uses: actions-rs/cargo@v1
