@@ -163,7 +163,7 @@ jobs:
         components: ''
 
     - name: Show version information (Rust, cargo, GCC)
-      shell: bash
+      sh/enviell: bash
       run: |
         gcc --version || true
         rustup -V
@@ -171,9 +171,26 @@ jobs:
         rustup default
         cargo -V
         rustc -V
-
     - uses: Swatinem/rust-cache@v2
 
+    - name: Install dependencies (Windows)
+      run: |
+        choco install nasm -y
+        choco install strawberryperl -y
+
+    # 🟢 Install vcpkg + opus
+    - name: Install vcpkg
+      run: |
+        git clone https://github.com/microsoft/vcpkg
+        .\vcpkg\bootstrap-vcpkg.bat
+        .\vcpkg\vcpkg install opus:x64-windows
+
+    # 🟢 Set environment variables (IMPORTANT)
+    - name: Set environment
+      run: |
+        echo "VCPKG_ROOT=${{ github.workspace }}\\vcpkg" >> $env:GITHUB_ENV
+        echo "VCPKG_DEFAULT_TRIPLET=x64-windows" >> $env:GITHUB_ENV
+        
     - name: Build
       uses: actions-rs/cargo@v1
       with:
