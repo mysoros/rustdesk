@@ -140,7 +140,7 @@ jobs:
     - name: Setup vcpkg with Github Actions binary cache
       uses: lukka/run-vcpkg@v11
       with:
-        vcpkgDirectory: /opt/artifacts/vcpkg
+        vcpkgDirectory: ${{ github.workspace }}/vcpkg
         vcpkgGitCommitId: ${{ env.VCPKG_COMMIT_ID }}
 
 #    - name: Install vcpkg dependencies
@@ -170,6 +170,10 @@ jobs:
       run: |
         choco install nasm -y
         choco install strawberryperl -y
+
+    - name: Set VCPKG triplet
+      run: |
+        echo "VCPKG_DEFAULT_TRIPLET=x64-windows" >> $env:GITHUB_ENV
 
     - name: Build
       uses: actions-rs/cargo@v1
