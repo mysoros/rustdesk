@@ -163,7 +163,7 @@ jobs:
         components: ''
 
     - name: Show version information (Rust, cargo, GCC)
-      sh/enviell: bash
+      shell: bash
       run: |
         gcc --version || true
         rustup -V
