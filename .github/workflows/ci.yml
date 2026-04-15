@@ -171,9 +171,14 @@ jobs:
         choco install nasm -y
         choco install strawberryperl -y
 
-    - name: Set VCPKG triplet
+    - name: Fix opus install (IMPORTANT)
       run: |
-        echo "VCPKG_DEFAULT_TRIPLET=x64-windows" >> $env:GITHUB_ENV
+        vcpkg install opus[tools]:x64-windows-static
+
+    - name: Set include path
+      run: |
+        echo "CFLAGS=-I${{ github.workspace }}\\vcpkg\\installed\\x64-windows-static\\include" >> $env:GITHUB_ENV
+        echo "CXXFLAGS=-I${{ github.workspace }}\\vcpkg\\installed\\x64-windows-static\\include" >> $env:GITHUB_ENV
 
     - name: Build
       uses: actions-rs/cargo@v1
