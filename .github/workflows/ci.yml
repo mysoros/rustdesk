@@ -171,14 +171,6 @@ jobs:
         choco install nasm -y
         choco install strawberryperl -y
 
-    - name: Install dependencies
-      run: vcpkg install
-
-    - name: Set include path
-      run: |
-        echo "CFLAGS=-I${{ github.workspace }}\\vcpkg\\installed\\x64-windows-static\\include" >> $env:GITHUB_ENV
-        echo "CXXFLAGS=-I${{ github.workspace }}\\vcpkg\\installed\\x64-windows-static\\include" >> $env:GITHUB_ENV
-
     - name: Set VCPKG triplet
       run: |
         echo "VCPKG_DEFAULT_TRIPLET=x64-windows" >> $env:GITHUB_ENV
