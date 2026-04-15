@@ -3,9 +3,9 @@ name: CI
 env:
 #   MIN_SUPPORTED_RUST_VERSION: "1.46.0"
 #   CICD_INTERMEDIATES_DIR: "_cicd-intermediates"
-  VCPKG_BINARY_SOURCES: "clear;x-gha,readwrite"
+#  VCPKG_BINARY_SOURCES: "clear;x-gha,readwrite"
   # for multiarch gcc compatibility
-  VCPKG_COMMIT_ID: "120deac3062162151622ca4860575a33844ba10b"
+#  VCPKG_COMMIT_ID: "120deac3062162151622ca4860575a33844ba10b"
 
 on:
   workflow_dispatch:
@@ -150,10 +150,10 @@ jobs:
         vcpkgDirectory: /opt/artifacts/vcpkg
         vcpkgGitCommitId: ${{ env.VCPKG_COMMIT_ID }}
 
-    - name: Install vcpkg dependencies
-      run: |
-        $VCPKG_ROOT/vcpkg install --x-install-root="$VCPKG_ROOT/installed"
-      shell: bash
+#    - name: Install vcpkg dependencies
+#      run: |
+#        $VCPKG_ROOT/vcpkg install --x-install-root="$VCPKG_ROOT/installed"
+#      shell: bash
 
     - name: Install Rust toolchain
       uses: dtolnay/rust-toolchain@v1
