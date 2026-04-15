@@ -1,10 +1,5 @@
 name: CI
 
-env:
-#   MIN_SUPPORTED_RUST_VERSION: "1.46.0"
-#   CICD_INTERMEDIATES_DIR: "_cicd-intermediates"
-  # for multiarch gcc compatibility
-
 on:
   workflow_dispatch:
   pull_request:
